@@ -1,0 +1,2230 @@
+:root {
+    --primary: #7D5A50; /* Deeper, more elegant brown */
+    --accent: #A67C52;  /* Classic moca accent */
+    --bg: #FDFBF7;      /* Light cream */
+    --text: #333;
+    --white: #ffffff;
+    --font-serif: 'Playfair Display', serif;
+    --font-sans: 'Poppins', sans-serif;
+    --font-script: 'Great Vibes', cursive;
+
+    /* ==========================================================================
+       PENGATURAN GELOMBANG HALAMAN 2 (Ubah Angka Di Bawah Ini Untuk Mengedit Posisi)
+       ========================================================================== */
+    --wave-top: -100px;
+    --wave-height: 219px;
+    --wave-scale-y: -1;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--font-sans);
+    background-color: var(--bg);
+    color: var(--text);
+    overflow-x: hidden;
+    overflow-y: hidden; /* Kunci scroll vertikal sebelum tombol Buka Undangan diklik */
+}
+
+body.opened {
+    overflow-y: auto; /* Aktifkan scrolling normal setelah undangan dibuka */
+}
+
+/* Container utama kini memanjang dan mengikuti alur scrolling alami browser */
+.container {
+    width: 100%;
+    min-height: 100vh;
+    background-color: var(--bg);
+}
+
+/* Page 1: Fixed full-screen cover — 100% solid, nothing shows through */
+#opening {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: 10000;
+    background: #FDFBF7;
+    background: linear-gradient(135deg, #FDFBF7 0%, #EADBC8 100%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    pointer-events: auto;
+    opacity: 1;
+    transition: opacity 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+    padding: 2rem;
+}
+
+#opening.fade-away {
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Page 2 (light transparent mocha) starts invisible and fades in simultaneously */
+#page5 {
+    background: #FDFBF7; /* Light cream */
+    opacity: 0;
+    transition: opacity 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+#page5.fade-in {
+    opacity: 1;
+}
+
+/* Custom Image Wave Divider on Page 2 */
+.wave-container-custom {
+    position: absolute;
+    top: var(--wave-top);
+    left: 0;
+    width: 100%;
+    height: var(--wave-height); /* Otomatis sinkron dengan variabel */
+    overflow: hidden;
+    z-index: 15; /* Sit above the background photo and overlay */
+    pointer-events: none;
+    transition: top 0.3s ease, height 0.3s ease; /* Efek transisi halus saat Anda mengedit nilainya */
+}
+
+.wave-img-custom {
+    width: 100%;
+    height: calc(var(--wave-height) * 2); /* Otomatis 2x tinggi kontainer agar bagian putih di bawah terpotong rapi */
+    object-fit: fill;
+    transform: scaleY(var(--wave-scale-y)); /* Otomatis sinkron dengan arah hadap variabel */
+    display: block;
+    mix-blend-mode: multiply; /* Menghilangkan background putih gambar agar menyatu 100% dengan background halaman */
+}
+
+/* ==========================================================================
+   ANIMASI DAUN BERJATUHAN (FALLING LEAVES) HALAMAN 2
+   ========================================================================== */
+.falling-leaves-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2; /* Di depan foto pengantin agar terlihat jatuh melewatinya */
+    pointer-events: none;
+    overflow: hidden;
+    mix-blend-mode: multiply; /* Pindahkan kesini agar background putih daun tetap transparan walau z-index diubah */
+}
+
+.falling-leaf {
+    position: absolute;
+    top: -100px;
+    height: auto;
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Konfigurasi masing-masing 5 daun: ukuran, posisi, delay, dan durasi berbeda agar realistis */
+.leaf-1 {
+    left: 10%;
+    width: 32px;
+    animation: fall-sway-1 9s linear infinite;
+    animation-delay: 0s;
+}
+
+.leaf-2 {
+    left: 30%;
+    width: 42px;
+    animation: fall-sway-2 11s linear infinite;
+    animation-delay: 2s;
+}
+
+.leaf-3 {
+    left: 50%;
+    width: 28px;
+    animation: fall-sway-1 8s linear infinite;
+    animation-delay: 4.5s;
+}
+
+.leaf-4 {
+    left: 70%;
+    width: 38px;
+    animation: fall-sway-2 12s linear infinite;
+    animation-delay: 1.5s;
+}
+
+.leaf-5 {
+    left: 88%;
+    width: 34px;
+    animation: fall-sway-1 10s linear infinite;
+    animation-delay: 6s;
+}
+
+/* Keyframes 1: Ayunan daun jatuh dari kiri ke kanan */
+@keyframes fall-sway-1 {
+    0% {
+        top: -100px;
+        transform: translateX(0) rotate(0deg);
+        opacity: 0;
+    }
+    15% {
+        opacity: 0.85;
+    }
+    35% {
+        transform: translateX(35px) rotate(45deg);
+    }
+    60% {
+        transform: translateX(-15px) rotate(110deg);
+    }
+    80% {
+        transform: translateX(45px) rotate(200deg);
+    }
+    92% {
+        opacity: 0.85;
+    }
+    100% {
+        top: 60vh; /* Jatuh sampai batas bawah foto pengantin (10vh + 50vh) */
+        transform: translateX(10px) rotate(300deg);
+        opacity: 0;
+    }
+}
+
+/* Keyframes 2: Ayunan daun jatuh dari kanan ke kiri */
+@keyframes fall-sway-2 {
+    0% {
+        top: -100px;
+        transform: translateX(0) rotate(0deg);
+        opacity: 0;
+    }
+    15% {
+        opacity: 0.85;
+    }
+    40% {
+        transform: translateX(-40px) rotate(-60deg);
+    }
+    70% {
+        transform: translateX(30px) rotate(140deg);
+    }
+    88% {
+        transform: translateX(-20px) rotate(240deg);
+    }
+    92% {
+        opacity: 0.85;
+    }
+    100% {
+        top: 60vh; /* Jatuh sampai batas bawah foto pengantin (10vh + 50vh) */
+        transform: translateX(-5px) rotate(340deg);
+        opacity: 0;
+    }
+}
+
+.bg-photo-container {
+    position: absolute;
+    top: 10vh; /* Sengaja dinaikkan agar bertumpuk dengan gelombang untuk efek menyambung */
+    left: 0;
+    width: 100%;
+    height: 75vh; /* Menjaga batas bawah tetap di 85vh (10 + 75 = 85) */
+    z-index: 1;
+    overflow: hidden;
+    /* Efek transisi gabungan: bagian paling atas transparan (0%) lalu perlahan menebal (12%) tepat di balik gelombang */
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%);
+    mask-image: linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%);
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+/* ==========================================================================
+   WAVE GELOMBANG ATAS (ABU-ABU) PADA HALAMAN 2
+   ========================================================================== */
+.top-wave-container {
+    position: absolute;
+    top: -1px; /* Posisi di paling atas layar */
+    left: 0;
+    width: 100%;
+    z-index: 5; /* Harus berada di atas daun dan background */
+    overflow: hidden;
+    line-height: 0;
+    transform: rotate(180deg); /* Balik posisinya agar menggantung dari atas */
+}
+
+.top-wave-svg {
+    position: relative;
+    display: block;
+    width: calc(100% + 1.3px);
+    height: 18vh; /* Gelombang menjuntai hingga 18vh, menutupi area awal foto yang transparan (10vh - 18vh) */
+}
+
+.bg-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 1; /* Solid photo */
+    filter: grayscale(100%); /* Black and white */
+    display: block;
+}
+
+.photo-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: transparent; /* Transparansi tepi kini dihandle secara fisik oleh mask-image kontainer */
+    z-index: 2;
+    pointer-events: none;
+}
+
+.clouds-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 3;
+    pointer-events: none;
+}
+
+.cloud {
+    position: absolute;
+    width: 350px;
+    opacity: 0.4;
+    pointer-events: none;
+}
+
+.cloud-1 {
+    top: 10%;
+    left: -200px;
+    animation: moveCloud1 30s linear infinite;
+}
+
+.cloud-2 {
+    bottom: 10%;
+    right: -200px;
+    animation: moveCloud2 45s linear infinite;
+    transform: scaleX(-1); /* Flip cloud 2 */
+}
+
+@keyframes moveCloud1 {
+    0% { transform: translateX(-120%) translateY(0); }
+    50% { transform: translateX(50%) translateY(-20px); }
+    100% { transform: translateX(220%) translateY(0); }
+}
+
+@keyframes moveCloud2 {
+    0% { transform: translateX(120%) translateY(0) scaleX(-1); }
+    50% { transform: translateX(-50%) translateY(20px) scaleX(-1); }
+    100% { transform: translateX(-220%) translateY(0) scaleX(-1); }
+}
+
+/* Page 2 Text Styles */
+.page2-text-container {
+    text-align: center;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+}
+
+.the-wedding-page2 {
+    font-family: var(--font-sans);
+    letter-spacing: 5px;
+    font-size: 0.75rem; /* Smaller */
+    color: #ffffff;
+    text-transform: uppercase;
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.8);
+}
+
+.couple-name-stacked {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: 'Great Vibes', cursive;
+    color: #ffffff;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
+}
+
+.couple-name-stacked .name {
+    font-size: 3.5rem; /* Smaller from 4.5rem */
+    line-height: 1.1;
+}
+
+.couple-name-stacked .ampersand {
+    font-size: 2.5rem;
+    color: #ffffff;
+    margin: -10px 0 20px 0;
+    /* Mengangkat posisi & sedikit ke atas */
+}
+
+
+.wedding-date {
+    font-family: var(--font-sans);
+    letter-spacing: 3px;
+    font-size: 0.75rem; /* Smaller */
+    color: #ffffff;
+    text-transform: uppercase;
+    margin-top: 1rem;
+    border: none; /* Removed lines */
+    padding: 0;
+    display: inline-block;
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.8);
+}
+
+
+
+
+.page {
+    min-height: 100vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    padding: 5rem 1rem;
+    overflow: visible;
+}
+
+/* Background Patterns */
+.page::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: radial-gradient(var(--primary) 0.5px, transparent 0.5px);
+    background-size: 30px 30px;
+    opacity: 0.1;
+    z-index: -1;
+}
+
+.content {
+    max-width: 600px;
+    width: 90%;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.85);
+    padding: 3rem 2rem;
+    border-radius: 24px;
+    backdrop-filter: blur(15px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    opacity: 0;
+    transform: translateY(40px) scale(0.98);
+    transition: all 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+    z-index: 10;
+}
+
+.page.active .content {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}
+
+/* Staggered Entrance Animations for children */
+.content > * {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.page.active .content > * {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.page.active .content > *:nth-child(1) { transition-delay: 0.2s; }
+.page.active .content > *:nth-child(2) { transition-delay: 0.4s; }
+.page.active .content > *:nth-child(3) { transition-delay: 0.6s; }
+.page.active .content > *:nth-child(4) { transition-delay: 0.8s; }
+.page.active .content > *:nth-child(5) { transition-delay: 1s; }
+
+/* Page 1: Opening – background is set in the fixed rule above */
+
+/* Page 5: Halaman Putih Kosong (Dipindahkan ke Page 2) */
+
+.branch {
+    position: absolute;
+    z-index: 0;
+    opacity: 0.15;
+    mix-blend-mode: multiply;
+    filter: sepia(0.4) brightness(1.1) contrast(0.9);
+    pointer-events: none;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+}
+
+.branch-1 {
+    top: -22.6px;
+    left: -138.9px;
+    width: 60%;
+    height: 60%;
+    background-image: url('media__1778620156983.jpg');
+    transform: rotate(-5deg);
+}
+
+.branch-2 {
+    top: 212.2px;
+    left: 600.9px;
+    width: 70%;
+    height: 70%;
+    background-image: url('media__1778620721265.jpg');
+    transform: rotate(-245deg);
+}
+
+.photo-frame {
+    width: 250px;
+    height: 250px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+    z-index: 5;
+    border-radius: 50%;
+    overflow: hidden;
+    animation: fadeIn 1.8s cubic-bezier(0.22, 1, 0.36, 1) forwards, photoFloat 6s ease-in-out infinite;
+    margin-bottom: 2rem;
+    flex-shrink: 0;
+}
+
+@keyframes photoFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+.photo-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    border-radius: 50%;
+    /* Ensure image is also circular */
+}
+
+.opening-text {
+    text-align: center;
+    width: 100%;
+    z-index: 10;
+}
+
+.the-wedding {
+    font-family: var(--font-sans);
+    letter-spacing: 5px;
+    font-size: 0.8rem;
+    color: var(--accent);
+    /* Light Brown */
+    margin-bottom: 0.5rem;
+}
+
+.couple-name-main {
+    font-family: 'Great Vibes', cursive;
+    font-size: 3.8rem;
+    color: var(--primary);
+    margin-bottom: 0.5rem;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.08);
+    opacity: 0;
+    animation: revealName 2s cubic-bezier(0.17, 0.67, 0.83, 0.67) 0.5s forwards;
+}
+
+@keyframes revealName {
+    0% {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(30px) scale(0.9);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.guest-info {
+    position: relative;
+    /* Changed from absolute to relative to stay in center flow */
+    margin-top: 0.5rem;
+    /* Reduced from 1.5rem */
+    display: block;
+    background: none;
+    padding: 0;
+    border: none;
+    backdrop-filter: none;
+    width: 100%;
+}
+
+.to-label {
+    font-size: 0.85rem;
+    color: var(--accent);
+    /* Matches Light Brown */
+    margin-bottom: 2px;
+}
+
+.guest-name {
+    font-weight: 600;
+    font-size: 1.2rem;
+    color: var(--accent);
+    /* Matches Light Brown */
+    letter-spacing: 1px;
+}
+
+.floral {
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    background: url('media__1778614707026.jpg') no-repeat center/contain;
+    z-index: 1;
+    mix-blend-mode: multiply;
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+.floral-tr {
+    top: -50px;
+    right: -50px;
+    transform: rotate(180deg);
+    animation: swayTR 10s ease-in-out infinite alternate;
+}
+
+@keyframes swayTR {
+    0% {
+        transform: rotate(180deg) scale(1);
+    }
+
+    100% {
+        transform: rotate(183deg) scale(1.05);
+    }
+}
+
+.floral-bl {
+    bottom: -50px;
+    left: -50px;
+    transform: rotate(0deg);
+    animation: swayBL 10s ease-in-out infinite alternate;
+}
+
+@keyframes swayBL {
+    0% {
+        transform: rotate(0deg) scale(1);
+    }
+
+    100% {
+        transform: rotate(3deg) scale(1.05);
+    }
+}
+
+.peony {
+    background: url('media__1778616806453.jpg') no-repeat center/contain;
+    z-index: 2;
+    /* On top of leaf */
+    width: 320px;
+    height: 320px;
+    mix-blend-mode: multiply;
+}
+
+.peony-tr {
+    top: 20px;
+    right: -80px;
+    transform: rotate(180deg);
+    animation: swayTR 8s ease-in-out infinite alternate-reverse;
+}
+
+.peony-bl {
+    bottom: 20px;
+    left: -80px;
+    transform: rotate(0deg);
+    animation: swayBL 8s ease-in-out infinite alternate-reverse;
+}
+
+#opening .content {
+    position: relative;
+    z-index: 3;
+    background: rgba(255, 255, 255, 0.4);
+    border: 1px solid rgba(125, 90, 80, 0.2);
+    color: var(--text);
+}
+
+
+.sub-title {
+    color: var(--primary);
+    letter-spacing: 4px;
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+.couple-names {
+    font-family: var(--font-serif);
+    font-size: 3.5rem;
+    margin-bottom: 1.5rem;
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--text);
+}
+
+.divider {
+    width: 60px;
+    height: 2px;
+    background: var(--primary);
+    margin: 1.5rem auto;
+}
+
+.quote {
+    font-style: italic;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-bottom: 3rem;
+    color: #555;
+}
+
+.open-btn {
+    display: inline-block;
+    margin-top: 1rem;
+    /* Reduced from 2rem */
+    background: transparent;
+    border: 1px solid var(--accent);
+    color: var(--accent);
+    padding: 10px 50px;
+    border-radius: 30px;
+    font-family: var(--font-sans);
+    font-size: 0.9rem;
+    letter-spacing: 3px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+}
+
+.open-btn:hover {
+    background: var(--accent);
+    color: white;
+    transform: scale(1.05);
+}
+
+/* Floating Music Button */
+.music-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(166, 124, 82, 0.3);
+    color: var(--accent);
+    display: none; /* Hidden until invitation is opened */
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    z-index: 9999;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.music-btn:hover {
+    background: rgba(255, 255, 255, 0.5);
+    transform: rotate(30deg);
+}
+
+.music-btn.playing .icon {
+    animation: rotateMusic 4s linear infinite;
+}
+
+@keyframes rotateMusic {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.music-btn .icon {
+    font-size: 1.2rem;
+    display: inline-block;
+}
+
+/* Page 2: Permohonan Kehadiran */
+.section-title {
+    font-family: var(--font-serif);
+    font-size: 2.2rem;
+    color: var(--primary);
+    margin-bottom: 2rem;
+}
+
+/* Page 2: Request */
+.message-card p {
+    margin-bottom: 1.5rem;
+    line-height: 1.8;
+    font-size: 1.05rem;
+}
+
+/* Page 3: Mempelai */
+.couple-details {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    align-items: center;
+}
+
+.name {
+    font-family: var(--font-script);
+    font-size: 3rem;
+    color: var(--primary);
+    margin-bottom: 0.5rem;
+}
+
+.parent {
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.ampersand {
+    font-family: var(--font-serif);
+    font-size: 2rem;
+    color: var(--primary);
+    opacity: 0.5;
+}
+
+/* Page 4: Details */
+.event-card {
+    margin-bottom: 1rem;
+    width: 100%;
+}
+
+.date-box {
+    margin-bottom: 2rem;
+}
+
+.day {
+    display: block;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+}
+
+.number-circle {
+    width: 80px;
+    height: 80px;
+    border: 2px solid var(--primary);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto 1rem;
+}
+
+.number {
+    font-family: var(--font-serif);
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--primary);
+}
+
+.month {
+    font-size: 1.1rem;
+    color: #555;
+}
+
+.schedule {
+    margin-bottom: 2rem;
+}
+
+.item {
+    padding: 1rem 0;
+}
+
+.label {
+    display: block;
+    font-weight: 600;
+    color: var(--primary);
+    margin-bottom: 0.3rem;
+}
+
+.divider-small {
+    width: 30px;
+    height: 1px;
+    background: #eee;
+    margin: 0 auto;
+}
+
+.venue {
+    font-weight: 600;
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+}
+
+.address {
+    font-size: 0.9rem;
+    color: #777;
+}
+
+.footer {
+    font-size: 0.9rem;
+    line-height: 1.6;
+}
+
+.thanks {
+    font-family: var(--font-script);
+    font-size: 2rem;
+    color: var(--primary);
+    margin-top: 1rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .content {
+        padding: 2.5rem 1.5rem;
+        width: 92%;
+    }
+
+    .couple-name-stacked .name {
+        font-size: 3.5rem;
+    }
+
+    .couple-name-main {
+        font-size: 3rem;
+    }
+
+    .photo-frame {
+        width: 200px;
+        height: 200px;
+        top: 8%;
+    }
+
+    .opening-text {
+        top: calc(8% + 220px);
+    }
+
+    .floral, .peony {
+        width: 200px;
+        height: 200px;
+    }
+
+    .floral-tr, .peony-tr {
+        right: -30px;
+        top: -30px;
+    }
+
+    .floral-bl, .peony-bl {
+        left: -30px;
+        bottom: -30px;
+    }
+}
+
+@media (max-width: 480px) {
+    .content {
+        padding: 2rem 1.2rem;
+        border-radius: 20px;
+    }
+
+    .section-title {
+        font-size: 1.8rem;
+    }
+
+    .couple-names {
+        font-size: 2.2rem;
+    }
+
+    .name {
+        font-size: 2.4rem;
+    }
+
+    .couple-name-stacked .name {
+        font-size: 3rem;
+    }
+
+    .opening-text {
+        padding: 0 20px;
+    }
+
+    .couple-name-main {
+        font-size: 3.2rem;
+    }
+
+    .guest-name {
+        font-size: 1.1rem;
+    }
+
+    .photo-frame {
+        width: 180px;
+        height: 180px;
+        margin-bottom: 1.5rem;
+    }
+
+    .opening-text {
+        padding: 0;
+    }
+
+    .music-btn {
+        bottom: 15px;
+        right: 15px;
+        width: 40px;
+        height: 40px;
+    }
+
+    /* Adjust branches for mobile */
+    .branch-1 {
+        width: 120%;
+        left: -30%;
+        top: -10%;
+    }
+
+    .branch-2 {
+        width: 120%;
+        right: -30%;
+        left: auto;
+        bottom: -10%;
+        top: auto;
+    }
+}
+
+/* ============================================
+   COUNTDOWN PAGE (#request) — Save The Date
+   ============================================ */
+
+/* Override default page padding for countdown */
+/* Countdown page — centered layout with dot pattern */
+.countdown-page {
+    min-height: auto !important; /* Hilangkan batas tinggi 100vh agar halaman jadi kompak */
+    padding: 3rem 1rem 4.5rem 1rem !important; /* Kembalikan ruang bawah yang lapang & nyaman untuk foto stacks */
+    background: #FDFBF7; /* Light cream */
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+/* Teks Undangan Baru di Bawah Countdown */
+.invitation-text-container {
+    max-width: 450px;
+    width: 100%;
+    margin: 2.5rem auto 0 auto;
+    padding: 0 1rem;
+    text-align: center;
+    animation: fadeSlideUp 1s cubic-bezier(0.22, 1, 0.36, 1) 0.5s forwards;
+    opacity: 0;
+}
+
+.invitation-text {
+    font-family: var(--font-serif);
+    font-size: 0.98rem;
+    line-height: 1.8;
+    color: #555;
+    margin: 0;
+}
+
+/* Simple wrapper for the brown countdown box */
+.countdown-wrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-top: 2.5rem;
+}
+
+
+
+/* "SAVE THE DATE" pill badge */
+.save-badge {
+    background: #7D5A50;
+    color: #fff;
+    font-family: var(--font-sans);
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    padding: 10px 36px;
+    border-radius: 40px;
+    box-shadow: 0 4px 18px rgba(125, 90, 80, 0.25);
+    /* Subtle entrance animation */
+    animation: badgePop 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    opacity: 0;
+}
+
+@keyframes badgePop {
+    0%   { opacity: 0; transform: scale(0.85) translateY(10px); }
+    100% { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+
+
+/* Bottom taupe band */
+.countdown-bottom {
+    background: #C4B5A5;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1.8rem;
+    padding: 2.8rem 2rem;
+}
+
+/* "Our Special Day" heading */
+.our-special-day {
+    font-family: var(--font-serif);
+    font-size: 2.6rem;
+    font-weight: 400;
+    color: #FDFBF8;
+    letter-spacing: 1px;
+    text-align: center;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    animation: fadeSlideUp 1s cubic-bezier(0.22, 1, 0.36, 1) 0.3s forwards;
+    opacity: 0;
+}
+
+@keyframes fadeSlideUp {
+    0%   { opacity: 0; transform: translateY(20px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+/* Grid of countdown numbers */
+.countdown-grid {
+    display: flex;
+    align-items: flex-end;
+    gap: 1.2rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    animation: fadeSlideUp 1s cubic-bezier(0.22, 1, 0.36, 1) 0.55s forwards;
+    opacity: 0;
+}
+
+/* Each number + label block */
+.countdown-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    min-width: 70px;
+}
+
+/* Big number — matches photo style */
+.countdown-number {
+    font-family: var(--font-serif);
+    font-size: 4.5rem;
+    font-weight: 400;
+    color: #FDFBF8;
+    line-height: 1;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Subtle "tick" scale on each second update */
+.countdown-number.tick {
+    transform: scale(1.12);
+}
+
+/* Unit label */
+.countdown-label {
+    font-family: var(--font-sans);
+    font-size: 0.78rem;
+    letter-spacing: 2px;
+    color: rgba(253, 251, 248, 0.75);
+    text-transform: capitalize;
+    font-weight: 400;
+}
+
+/* Dot separator between items */
+.countdown-separator {
+    font-size: 2rem;
+    color: rgba(253, 251, 248, 0.4);
+    margin-bottom: 14px;
+    font-family: var(--font-serif);
+    user-select: none;
+}
+
+/* "Waktu telah tiba!" message when countdown hits zero */
+.countdown-done {
+    font-family: var(--font-script);
+    font-size: 2.2rem;
+    color: #FDFBF8;
+    text-align: center;
+    animation: fadeSlideUp 0.8s ease forwards;
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 480px) {
+    .countdown-number {
+        font-size: 3.2rem;
+    }
+
+    .our-special-day {
+        font-size: 2rem;
+    }
+
+    .countdown-grid {
+        gap: 0.7rem;
+    }
+
+    .countdown-item {
+        min-width: 54px;
+    }
+
+    .countdown-separator {
+        font-size: 1.4rem;
+        margin-bottom: 10px;
+    }
+
+    .save-badge {
+        font-size: 0.7rem;
+        padding: 9px 26px;
+        letter-spacing: 3px;
+    }
+
+    .countdown-top {
+        padding: 1.8rem 1rem;
+    }
+
+    .countdown-bottom {
+        padding: 2rem 1rem;
+        gap: 1.4rem;
+    }
+}
+
+/* ==========================================================================
+   PAGE 5: LOVE STORY TIMELINE STYLE
+   ========================================================================== */
+.story-timeline {
+    position: relative;
+    padding: 1.5rem 0;
+    margin: 2rem 0 0 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.story-item {
+    background: rgba(255, 255, 255, 0.6);
+    border-radius: 16px;
+    padding: 1.5rem;
+    width: 100%;
+    max-width: 450px;
+    box-shadow: 0 10px 20px rgba(125, 90, 80, 0.04);
+    border: 1px solid rgba(125, 90, 80, 0.08);
+    text-align: center;
+    transition: all 0.4s ease;
+}
+
+.story-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(125, 90, 80, 0.08);
+}
+
+.story-date {
+    font-family: var(--font-serif);
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary);
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.story-event {
+    font-family: var(--font-serif);
+    font-size: 1.1rem;
+    color: var(--accent);
+    margin-bottom: 0.5rem;
+}
+
+.story-desc {
+    font-size: 0.88rem;
+    line-height: 1.6;
+    color: #555;
+}
+
+.story-separator {
+    width: 2px;
+    height: 35px;
+    background: linear-gradient(to bottom, var(--primary), var(--accent));
+    opacity: 0.4;
+}
+
+/* ==========================================================================
+   PAGE 6: GALLERY STYLE
+   ========================================================================== */
+#gallery {
+    background-color: var(--bg);
+    overflow: hidden;
+    padding: 5rem 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Menyelaraskan seluruh elemen ke tengah */
+    justify-content: center;
+    text-align: center;
+    width: 100%;
+}
+
+#gallery .section-title {
+    margin-bottom: 20px;
+    color: var(--primary);
+    
+    /* Animasi scroll masuk kustom */
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+#gallery.active .section-title {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    margin-top: 1rem;
+    max-width: 520px; /* Lebar grid disesuaikan agar sangat proporsional dan elegan */
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    
+    /* Animasi scroll masuk kustom */
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 1.2s cubic-bezier(0.22, 1, 0.36, 1) 0.2s;
+}
+
+#gallery.active .gallery-grid {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.gallery-item {
+    position: relative;
+    border-radius: 20px; /* Sudut melengkung yang lebih modern dan selaras dengan Love Story */
+    overflow: hidden;
+    aspect-ratio: 1 / 1;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.06);
+    transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.8s ease;
+}
+
+.gallery-item:hover {
+    transform: scale(1.03) rotate(1deg);
+    box-shadow: 0 15px 35px rgba(125, 90, 80, 0.12);
+}
+
+.gallery-item:hover img {
+    transform: scale(1.1);
+}
+
+/* ==========================================================================
+   PAGE 7: RSVP STYLE
+   ========================================================================== */
+.rsvp-intro {
+    font-size: 0.95rem;
+    color: #666;
+    margin-bottom: 1.8rem;
+    line-height: 1.6;
+}
+
+.rsvp-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+    width: 100%;
+    max-width: 450px;
+    margin: 0 auto;
+}
+
+.form-group input,
+.form-group select,
+.wish-form input,
+.wish-form textarea {
+    width: 100%;
+    padding: 1rem 1.2rem;
+    border-radius: 12px;
+    border: 1px solid rgba(125, 90, 80, 0.2);
+    background: rgba(255, 255, 255, 0.9);
+    font-family: var(--font-sans);
+    font-size: 0.92rem;
+    color: #333;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.wish-form input:focus,
+.wish-form textarea:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(125, 90, 80, 0.12);
+    background: #fff;
+}
+
+.rsvp-submit-btn,
+.wish-submit-btn {
+    background: var(--primary);
+    color: #fff;
+    border: none;
+    border-radius: 12px;
+    padding: 1rem;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 20px rgba(125, 90, 80, 0.15);
+}
+
+.rsvp-submit-btn:hover,
+.wish-submit-btn:hover {
+    background: var(--accent);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(166, 124, 82, 0.25);
+}
+
+.rsvp-response-message {
+    margin-top: 1.5rem;
+    padding: 1rem;
+    border-radius: 12px;
+    background: rgba(46, 117, 89, 0.08);
+    border: 1px solid rgba(46, 117, 89, 0.15);
+    color: #2E7559;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    display: none;
+    animation: fadeIn 0.5s ease forwards;
+}
+
+/* ==========================================================================
+   PAGE 8: KADO DIGITAL STYLE
+   ========================================================================== */
+.gift-intro {
+    font-size: 0.95rem;
+    color: #666;
+    margin-bottom: 2rem;
+    line-height: 1.6;
+}
+
+.gift-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    width: 100%;
+    max-width: 450px;
+    margin: 0 auto;
+}
+
+.gift-card {
+    background: linear-gradient(135deg, rgba(255,255,255,0.7) 0%, rgba(245,240,235,0.7) 100%);
+    border-radius: 20px;
+    padding: 2rem 1.5rem;
+    border: 1px solid rgba(125, 90, 80, 0.1);
+    box-shadow: 0 12px 30px rgba(125, 90, 80, 0.03);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.bank-logo {
+    font-family: var(--font-serif);
+    font-size: 1.3rem;
+    font-weight: 800;
+    color: var(--primary);
+    letter-spacing: 2px;
+    margin-bottom: 0.8rem;
+    font-style: italic;
+}
+
+.account-number {
+    font-family: var(--font-sans);
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #333;
+    letter-spacing: 1px;
+    margin-bottom: 0.3rem;
+}
+
+.account-name {
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 1.5rem;
+}
+
+.copy-btn, .reveal-btn {
+    background: transparent;
+    border: 1px dashed var(--primary);
+    color: var(--primary);
+    padding: 0.6rem 1.5rem;
+    border-radius: 30px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    outline: none;
+    display: inline-block;
+}
+
+.copy-btn:hover, .copy-btn.copied, .reveal-btn:hover {
+    background: var(--primary);
+    color: #fff;
+    border-style: solid;
+}
+
+/* ==========================================================================
+   PAGE 9: WISH BOARD & CLOSING STYLE
+   ========================================================================== */
+.wishes-box {
+    width: 100%;
+    max-height: 250px;
+    overflow-y: auto;
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 16px;
+    padding: 1.2rem;
+    border: 1px solid rgba(125, 90, 80, 0.08);
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    text-align: left;
+    margin-bottom: 1.5rem;
+    scroll-behavior: smooth;
+}
+
+/* Scrollbar styles for wishing wall */
+.wishes-box::-webkit-scrollbar {
+    width: 6px;
+}
+.wishes-box::-webkit-scrollbar-track {
+    background: transparent;
+}
+.wishes-box::-webkit-scrollbar-thumb {
+    background: rgba(125, 90, 80, 0.2);
+    border-radius: 10px;
+}
+
+.wish-item {
+    background: #fff;
+    padding: 1rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.02);
+    border-left: 3px solid var(--accent);
+}
+
+.wish-item.new-wish {
+    animation: slideInDown 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.wish-sender {
+    font-family: var(--font-serif);
+    font-size: 0.95rem;
+    color: var(--primary);
+    margin-bottom: 0.3rem;
+}
+
+.wish-text {
+    font-size: 0.85rem;
+    color: #555;
+    line-height: 1.5;
+}
+
+.wish-form {
+    margin-bottom: 3.5rem;
+    width: 100%;
+    max-width: 450px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Select dropdown styling for RSVP */
+.wish-form select {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    border: 1px solid rgba(125, 90, 80, 0.15);
+    border-radius: 12px;
+    font-family: var(--font-sans);
+    font-size: 0.9rem;
+    color: #555;
+    background: rgba(255, 255, 255, 0.8);
+    outline: none;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    appearance: none;
+    -webkit-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%237D5A50' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    cursor: pointer;
+}
+
+.wish-form select:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(125, 90, 80, 0.08);
+}
+
+/* Number input styling */
+.wish-form input[type="number"] {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    border: 1px solid rgba(125, 90, 80, 0.15);
+    border-radius: 12px;
+    font-family: var(--font-sans);
+    font-size: 0.9rem;
+    color: #555;
+    background: rgba(255, 255, 255, 0.8);
+    outline: none;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.wish-form input[type="number"]:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(125, 90, 80, 0.08);
+}
+
+/* Attendance badge on wish items */
+.wish-badge {
+    font-family: var(--font-sans);
+    font-size: 0.65rem;
+    font-weight: 600;
+    padding: 0.2rem 0.6rem;
+    border-radius: 20px;
+    margin-left: 0.5rem;
+    vertical-align: middle;
+    letter-spacing: 0.3px;
+}
+
+.badge-hadir {
+    background: rgba(46, 117, 89, 0.12);
+    color: #2E7559;
+}
+
+.badge-tidak {
+    background: rgba(200, 80, 80, 0.12);
+    color: #C85050;
+}
+
+.badge-ragu {
+    background: rgba(200, 170, 50, 0.15);
+    color: #9A8520;
+}
+
+.closing-quote {
+    margin: 3rem 0;
+    padding: 2rem 1.5rem;
+    border-top: 1px solid rgba(125, 90, 80, 0.1);
+    border-bottom: 1px solid rgba(125, 90, 80, 0.1);
+    position: relative;
+    width: 100%;
+}
+
+.quote-text {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: #444;
+    margin-bottom: 1rem;
+}
+
+.quote-source {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.closing-thanks {
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: #666;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    width: 100%;
+}
+
+.closing-couples {
+    font-family: var(--font-serif);
+    font-size: 1rem;
+    font-weight: 400;
+    color: #444;
+    letter-spacing: 1px;
+}
+
+.closing-couples span {
+    font-family: var(--font-script);
+    font-size: 3rem;
+    color: var(--primary);
+    display: block;
+    margin-top: 0.5rem;
+    text-shadow: none;
+}
+
+/* New animations */
+@keyframes slideInDown {
+    0% {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* RESPONSIVE DESIGN FOR NEW PAGES */
+@media (max-width: 480px) {
+    .gallery-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .gallery-item {
+        max-width: 320px;
+        margin: 0 auto;
+    }
+    
+    .account-number {
+        font-size: 1.25rem;
+    }
+    
+    .closing-couples span {
+        font-size: 2.5rem;
+    }
+}
+
+/* ==========================================================================
+   PAGE 2.5: CUSTOMIZABLE TEXT SECTION STYLE (PURE TYPOGRAPHY)
+   ========================================================================== */
+.custom-text-section {
+    background: #FDFBF7; /* Cocok dengan cream background dari countdown */
+    padding: 0 1.5rem 2rem 1.5rem;
+    margin-top: -1.5rem; /* Tarik bagian ini lebih tinggi ke atas untuk memangkas celah kosong */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    position: relative;
+    z-index: 5;
+    text-align: center;
+}
+
+.custom-text-container {
+    max-width: 450px;
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Intersection observer active animation */
+.custom-text-section.active .custom-text-container {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.the-wedding-custom {
+    font-family: var(--font-sans);
+    letter-spacing: 5px;
+    font-size: 0.82rem;
+    color: var(--accent);
+    text-transform: uppercase;
+    font-weight: 600;
+    margin: 0;
+}
+
+.couple-name-custom {
+    font-family: var(--font-script);
+    font-size: 3.5rem;
+    color: var(--primary);
+    margin: 0.4rem 0;
+    font-weight: 400;
+    text-shadow: none;
+}
+
+.wedding-date-custom {
+    font-family: var(--font-serif);
+    font-size: 1.1rem;
+    letter-spacing: 1px;
+    color: #555;
+    margin: 0;
+}
+
+/* ==========================================================================
+   PHOTO STACK CARDS STYLE
+   ========================================================================== */
+.couple-photo-stacks {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* Sejajarkan ke atas agar jika tinggi profil sedikit berbeda tetap rapi */
+    gap: 4.5rem; /* Perlebar jarak antar bingkai agar lebih berjauhan */
+    width: 100%;
+    max-width: 520px; /* Tingkatkan batas lebar maksimum untuk memberi ruang */
+    margin: 2.5rem auto 1rem auto;
+    padding: 0 1rem;
+}
+
+.couple-profile-column {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    flex: 1;
+}
+
+.profile-info {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    width: 100%;
+}
+
+.profile-name {
+    font-family: var(--font-serif);
+    font-size: 1.35rem;
+    color: var(--primary); /* Warna cokelat utama pengantin */
+    font-weight: 600;
+    margin: 0;
+}
+
+.profile-parents {
+    font-family: var(--font-sans);
+    font-size: 0.76rem;
+    color: #777; /* Warna abu-abu halus sesuai screenshot template */
+    margin: 0;
+    line-height: 1.4;
+    letter-spacing: 0.2px;
+}
+
+.profile-ig-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 38px;
+    height: 38px;
+    background: #8D6E63; /* Warna bulat cokelat persis seperti screenshot template */
+    color: #fff;
+    border-radius: 50%;
+    box-shadow: 0 4px 10px rgba(141, 110, 99, 0.15);
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    margin-top: 0.4rem;
+    text-decoration: none;
+}
+
+.profile-ig-btn:hover {
+    transform: translateY(-3px) scale(1.06);
+    background: #7D5A50; /* Sedikit lebih gelap saat di-hover */
+    box-shadow: 0 6px 15px rgba(141, 110, 99, 0.3);
+}
+
+.ig-svg-icon {
+    display: block;
+}
+
+.photo-stack-card {
+    position: relative;
+    width: 160px;
+    height: 230px; /* Kotak panjang ke bawah (portrait) */
+    cursor: pointer;
+    transition: all 0.4s ease;
+}
+
+.card-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 16px; /* Sudut tidak lancip */
+    transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* Layer bayangan paling belakang */
+.card-shadow {
+    background: transparent;
+    box-shadow: 0 10px 25px rgba(125, 90, 80, 0.12);
+    z-index: 1;
+    transform: scale(0.95) translateY(5px);
+}
+
+/* Layer kartu belakang (kartu yang tertumpuk) */
+.card-bg {
+    background: #F4EFEA;
+    border: 1px solid rgba(125, 90, 80, 0.15);
+    z-index: 2;
+}
+
+.stack-left .card-bg {
+    transform: rotate(-6deg) translate(-4px, 2px);
+}
+
+.stack-right .card-bg {
+    transform: rotate(6deg) translate(4px, 2px);
+}
+
+/* Layer utama paling depan (menampung foto) */
+.card-main {
+    background: #fff;
+    border: 6px solid #fff; /* Bingkai foto bergaya polaroid/galeri */
+    box-shadow: 0 8px 20px rgba(125, 90, 80, 0.08);
+    z-index: 3;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.stack-left .card-main {
+    transform: rotate(2deg) translate(2px, -2px);
+}
+
+.stack-right .card-main {
+    transform: rotate(-2deg) translate(-2px, -2px);
+}
+
+.stack-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px; /* Sudut foto juga bulat manis */
+    transition: transform 0.6s ease;
+}
+
+/* Hover Interaction: kartu seolah melebar/terbuka sedikit */
+.photo-stack-card:hover {
+    transform: translateY(-8px);
+}
+
+.photo-stack-card:hover .stack-img {
+    transform: scale(1.06);
+}
+
+.photo-stack-card:hover .card-bg {
+    filter: brightness(0.98);
+}
+
+.stack-left:hover .card-bg {
+    transform: rotate(-12deg) translate(-10px, 4px);
+}
+
+.stack-right:hover .card-bg {
+    transform: rotate(12deg) translate(10px, 4px);
+}
+
+.stack-left:hover .card-main {
+    transform: rotate(0deg) translate(0, 0);
+}
+
+.stack-right:hover .card-main {
+    transform: rotate(0deg) translate(0, 0);
+}
+
+/* RESPONSIVE DESIGN FOR STACKED PHOTOS */
+@media (max-width: 480px) {
+    .couple-photo-stacks {
+        gap: 2.5rem; /* Perlebar jarak antar bingkai di layar mobile juga */
+    }
+    
+    .photo-stack-card {
+        width: 135px;
+        height: 195px;
+    }
+}
+
+/* ==========================================================================
+   QURAN QUOTE PAGE (Standalone Transition)
+   ========================================================================== */
+.quote-page {
+    background: #B09B8E !important; /* Warna taupe/warm-grey estetik di seluruh halaman perantara */
+    min-height: auto !important;
+    padding: 6.5rem 1.5rem !important; /* Padding vertikal yang lapang dan mewah */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    box-sizing: border-box;
+    width: 100%;
+    
+    /* Animasi scroll masuk */
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 1.2s cubic-bezier(0.22, 1, 0.36, 1), transform 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.quote-page.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.quran-quote-banner {
+    width: 100%;
+    max-width: 700px;
+    text-align: center;
+    color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.2rem;
+}
+
+.quote-icon {
+    color: rgba(255, 255, 255, 0.85);
+    margin-bottom: 0.2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.quote-text {
+    font-family: var(--font-serif);
+    font-size: 0.98rem;
+    line-height: 1.9;
+    max-width: 650px;
+    margin: 0 auto;
+    color: rgba(255, 255, 255, 0.95);
+    letter-spacing: 0.2px;
+}
+
+.quote-reference {
+    font-family: var(--font-sans);
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+    color: rgba(255, 255, 255, 0.85);
+    text-transform: uppercase;
+    margin-top: 0.5rem;
+}
+
+/* Penyesuaian responsif untuk quran quote page */
+@media (max-width: 768px) {
+    .quote-page {
+        padding: 5rem 1.5rem !important;
+    }
+    
+    .quote-text {
+        font-size: 0.9rem;
+        line-height: 1.8;
+    }
+}
+
+/* ==========================================================================
+   LOVE STORY CAROUSEL (FLOATING - TANPA CARD BELAKANG)
+   ========================================================================== */
+#love-story {
+    background-color: var(--bg);
+    overflow: hidden;
+    padding: 5rem 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Menyelaraskan seluruh elemen ke tengah */
+    justify-content: center;
+    text-align: center;
+    width: 100%;
+}
+
+#love-story .section-title {
+    margin-bottom: 30px;
+    color: var(--primary);
+    
+    /* Animasi scroll masuk kustom */
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+#love-story.active .section-title {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.love-story-carousel {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    gap: 20px; /* Jarak antar bingkai foto */
+    padding: 20px 0; /* Padding vertikal */
+    max-width: 1050px; /* Diperbesar dari 850px agar bingkai jauh lebih besar dan memenuhi layar */
+    width: 95%; /* Menggunakan area lebar layar lebih maksimal */
+    margin: 0 auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE/Edge */
+    
+    /* Animasi scroll masuk kustom bertahap (staggered delay) */
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 1.2s cubic-bezier(0.22, 1, 0.36, 1) 0.2s;
+}
+
+#love-story.active .love-story-carousel {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.love-story-carousel::-webkit-scrollbar {
+    display: none; /* Chrome/Safari */
+}
+
+.love-story-card {
+    flex: 0 0 calc((100% - 40px) / 3); /* Tepat 3 bingkai muat dalam layar secara proporsional */
+    scroll-snap-align: start;
+    background-color: transparent;
+    display: flex;
+    flex-direction: column;
+    aspect-ratio: 9/16; /* Ukuran persegi panjang tegak yang sangat tinggi persis seperti screenshot */
+    cursor: pointer;
+    outline: none; /* Menghilangkan garis biru/hitam bawaan browser saat di-tap/fokus */
+    -webkit-tap-highlight-color: transparent; /* Menghilangkan bayangan tap abu-abu di mobile Safari/Chrome */
+}
+
+.card-image-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background: rgba(235, 235, 235, 1); /* Latar belakang abu-abu keputihan solid di bagian bawah */
+    border-radius: 35px; /* Sudut melengkung ekstra besar persis seperti screenshot */
+    overflow: hidden;
+    box-shadow: none; /* Menghapus efek shadow bawaan sesuai keinginan user */
+    transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+    /* Mencegah glitch garis hitam halus (sub-pixel boundary) saat scaling/rendering di iOS & Chrome */
+    transform: translate3d(0, 0, 0);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+}
+
+/* Efek gradien abu-abu muda transparan kustom: setengah bawah solid, setengah atas memudar */
+.card-image-wrapper::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%; /* Kembali mencakup seluruh tinggi bingkai */
+    /* Gradien transparan abu-abu keputihan ultra-lembut (eased gradient) agar foto dan area teks menyatu sangat mulus tanpa garis batas yang kasar */
+    background: linear-gradient(
+        to top,
+        rgba(235, 235, 235, 1) 0%,
+        rgba(235, 235, 235, 1) 40%,
+        rgba(235, 235, 235, 0.95) 46%,
+        rgba(235, 235, 235, 0.8) 54%,
+        rgba(235, 235, 235, 0.5) 63%,
+        rgba(235, 235, 235, 0.2) 73%,
+        rgba(235, 235, 235, 0.05) 83%,
+        rgba(235, 235, 235, 0) 92%,
+        rgba(235, 235, 235, 0) 100%
+    );
+    pointer-events: none;
+    z-index: 2; /* Menimpa gambar di atasnya */
+}
+
+.card-image-wrapper img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 60%; /* Foto diposisikan di 60% teratas (di atas setengah bingkai) agar terlihat jelas */
+    object-fit: cover;
+    transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+    z-index: 1; /* Di bawah lapisan gradien ::after */
+}
+
+/* Konten teks cerita di dalam area abu-abu bingkai */
+.card-content {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 40%; /* Menempati 40% area bawah yang berwarna abu-abu */
+    padding: 1.5rem 1.4rem 1rem 1.4rem; /* Padding atas yang konsisten untuk posisi sejajar */
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; /* Menjaga agar posisi judul dan garis pembatas selalu sejajar presisi di semua bingkai */
+    align-items: center;
+    z-index: 3; /* Di atas lapisan gradien ::after agar teks terbaca jelas */
+    text-align: center;
+}
+
+.card-title {
+    font-family: var(--font-serif);
+    font-size: 1.25rem; /* Diperbesar agar seimbang dengan ukuran bingkai yang lebih besar */
+    font-weight: 600;
+    color: #444; /* Cokelat gelap hangat, kontras dengan abu-abu muda */
+    margin: 0;
+    letter-spacing: 0.5px;
+}
+
+/* Garis horizontal pembatas di bawah judul */
+.card-divider {
+    width: 80%; /* Mengisi lebar kanan dan kiri bingkai agar lebih memenuhi */
+    height: 1px; /* Garis horizontal tipis elegan */
+    background: rgba(141, 110, 99, 0.4); /* Warna cokelat hangat dengan transparansi lembut agar terlihat premium */
+    margin: 10px 0; /* Jarak vertikal */
+}
+
+.card-desc {
+    font-family: var(--font-sans);
+    font-size: 0.78rem; /* Diperbesar untuk keterbacaan yang jauh lebih baik pada layar desktop */
+    line-height: 1.6;
+    color: #555;
+    margin: 0;
+    overflow-y: auto; /* Memungkinkan scroll halus jika konten teks melimpah di layar kecil */
+    max-height: 100%;
+    scrollbar-width: none; /* Menyembunyikan scrollbar di Firefox */
+}
+
+.card-desc::-webkit-scrollbar {
+    display: none; /* Menyembunyikan scrollbar di Chrome/Safari */
+}
+
+/* Animasi premium kustom saat di-hover */
+.love-story-card:hover .card-image-wrapper {
+    transform: translateY(-8px) scale(1.02); /* Efek melayang naik sedikit */
+    box-shadow: none; /* Menghapus efek shadow saat di-hover */
+}
+
+.love-story-card:hover img {
+    transform: scale(1.06); /* Zoom halus pada gambar */
+}
+
+/* Penyesuaian responsif untuk perangkat mobile */
+@media (max-width: 480px) {
+    .card-image-wrapper {
+        border-radius: 25px; /* Sedikit dikecilkan kebulatannya di layar kecil agar proporsional */
+    }
+    .card-image-wrapper img {
+        border-radius: 25px;
+    }
+    .card-content {
+        padding: 0.5rem 0.6rem; /* Padding lebih kecil pada mobile */
+    }
+    .card-title {
+        font-size: 0.85rem; /* Mengecilkan judul di mobile agar pas */
+    }
+    .card-divider {
+        margin: 4px 0;
+        width: 70%;
+    }
+    .card-desc {
+        font-size: 0.55rem; /* Mengecilkan teks deskripsi cerita di mobile agar tidak terpotong */
+        line-height: 1.35;
+    }
+}
