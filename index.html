@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Undangan Digital - Andi & Sinta</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Poppins:wght@300;400;600&family=Great+Vibes&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css?v=1.3">
+</head>
+
+<body>
+
+    <div class="container">
+        <!-- Audio Element (Kicau Mania) -->
+        <audio id="wedding-music" loop>
+            <!-- Link audio kicau burung aktif -->
+            <source src="https://orangefreesounds.com/wp-content/uploads/2022/01/Small-birds-chirping-sound.mp3" type="audio/mpeg">
+            <source src="https://files.freemusicarchive.org/storage-freemusicarchive-org/music/no_curator/Ketsa/Raising_Frequency/Ketsa_-_04_-_Warm_Morning.mp3" type="audio/mpeg">
+        </audio>
+
+        <!-- Floating Music Button -->
+        <button id="music-control" class="music-btn pause">
+            <span class="icon">♪</span>
+        </button>
+        <!-- Page 1: Opening -->
+        <section class="page" id="opening">
+            <div class="branch branch-1"></div>
+            <div class="branch branch-2"></div>
+            <div class="photo-frame">
+                <img id="preview-img" src="media__1778622380416.jpg" alt="Wedding Photo">
+            </div>
+            <div class="opening-text">
+                <p class="the-wedding">THE WEDDING OF</p>
+                <h1 class="couple-name-main">Andi & Sinta</h1>
+                <div class="guest-info">
+                    <p class="to-label">Kepada Yth.</p>
+                    <p class="guest-name">Dimas Dharma</p>
+                </div>
+                <button class="open-btn" id="open-invitation">Buka Undangan</button>
+            </div>
+            <div class="floral floral-tr"></div>
+            <div class="floral peony peony-tr"></div>
+            <div class="floral floral-bl"></div>
+            <div class="floral peony peony-bl"></div>
+            <div class="overlay"></div>
+            <div class="overlay"></div>
+        </section>
+
+        <section class="page" id="page5">
+            <!-- Top Wave -->
+            <div class="top-wave-container">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" preserveAspectRatio="none" class="top-wave-svg">
+                    <path fill="#f2f2f2" fill-opacity="0.3" d="M0,160L48,144C96,128,192,96,288,106.7C384,117,480,171,576,192C672,213,768,203,864,186.7C960,171,1056,149,1152,149.3C1248,149,1344,171,1392,181.3L1440,192L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
+                    <path fill="#cccccc" fill-opacity="0.3" d="M0,224L48,224C96,224,192,224,288,208C384,192,480,160,576,165.3C672,171,768,213,864,229.3C960,245,1056,235,1152,208C1248,181,1344,139,1392,117.3L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
+                    <path fill="#cccccc" fill-opacity="0.3" d="M0,288L48,272C96,256,192,224,288,213.3C384,203,480,213,576,218.7C672,224,768,224,864,208C960,192,1056,160,1152,149.3C1248,139,1344,149,1392,154.7L1440,160L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
+                </svg>
+            </div>
+
+            <!-- Falling Leaves Container -->
+            <div class="falling-leaves-container">
+                <img src="media__leaf.jpg" class="falling-leaf leaf-1" alt="Leaf">
+                <img src="media__leaf.jpg" class="falling-leaf leaf-2" alt="Leaf">
+                <img src="media__leaf.jpg" class="falling-leaf leaf-3" alt="Leaf">
+                <img src="media__leaf.jpg" class="falling-leaf leaf-4" alt="Leaf">
+                <img src="media__leaf.jpg" class="falling-leaf leaf-5" alt="Leaf">
+            </div>
+
+            <div class="bg-photo-container">
+                <img src="media__handshake.png" class="bg-photo" alt="Couple Background">
+                <div class="photo-overlay"></div>
+            </div>
+        </section>
+
+        <!-- Page 2.5: Kolom Teks Kustom (Bisa Diisi Sendiri) -->
+        <section class="custom-text-section" id="custom-text">
+            <div class="custom-text-container">
+                <p class="the-wedding-custom">THE WEDDING OF</p>
+                <h1 class="couple-name-custom">Andi & Sinta</h1>
+                <p class="wedding-date-custom">25 Januari 2030</p>
+            </div>
+        </section>
+
+        <!-- Page 3: Save The Date + Countdown -->
+        <section class="page countdown-page" id="request">
+
+            <!-- Badge langsung di background halaman -->
+            <div class="save-badge">SAVE THE DATE</div>
+
+            <!-- Kotak coklat hitungan mundur -->
+            <div class="countdown-wrapper">
+                <div class="countdown-bottom">
+                    <h2 class="our-special-day">Our Special Day</h2>
+                    <div class="countdown-grid" id="countdown-grid">
+                        <div class="countdown-item">
+                            <span class="countdown-number" id="cd-days">00</span>
+                            <span class="countdown-label">Hari</span>
+                        </div>
+                        <div class="countdown-separator">·</div>
+                        <div class="countdown-item">
+                            <span class="countdown-number" id="cd-hours">00</span>
+                            <span class="countdown-label">Jam</span>
+                        </div>
+                        <div class="countdown-separator">·</div>
+                        <div class="countdown-item">
+                            <span class="countdown-number" id="cd-minutes">00</span>
+                            <span class="countdown-label">Menit</span>
+                        </div>
+                        <div class="countdown-separator">·</div>
+                        <div class="countdown-item">
+                            <span class="countdown-number" id="cd-seconds">00</span>
+                            <span class="countdown-label">Detik</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Teks Undangan Baru -->
+            <div class="invitation-text-container">
+                <p class="invitation-text">
+                    Tanpa mengurangi rasa hormat. Kami mengundang Bapak/Ibu/Saudara/i serta kerabat sekalian untuk menghadiri acara pernikahan kami :
+                </p>
+            </div>
+
+            <!-- 2 Bingkai Foto Tumpuk Kartu (Kiri dan Kanan) -->
+            <div class="couple-photo-stacks">
+                <!-- Kolom Pria (Kiri) -->
+                <div class="couple-profile-column">
+                    <div class="photo-stack-card stack-left">
+                        <div class="card-layer card-shadow"></div>
+                        <div class="card-layer card-bg"></div>
+                        <div class="card-layer card-main">
+                            <img src="media__groom.jpg" class="stack-img" alt="Groom Photo">
+                        </div>
+                    </div>
+                    
+                    <div class="profile-info">
+                        <h3 class="profile-name">Andi Setiawan</h3>
+                        <p class="profile-parents">Putra dari Bapak Purwanto & Ibu Rani</p>
+                        <a href="https://instagram.com/andisetiawan" target="_blank" class="profile-ig-btn" aria-label="Instagram Andi">
+                            <svg class="ig-svg-icon" viewBox="0 0 24 24" width="18" height="18">
+                                <path fill="currentColor" d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.051.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Kolom Wanita (Kanan) -->
+                <div class="couple-profile-column">
+                    <div class="photo-stack-card stack-right">
+                        <div class="card-layer card-shadow"></div>
+                        <div class="card-layer card-bg"></div>
+                        <div class="card-layer card-main">
+                            <img src="media__bride.jpg" class="stack-img" alt="Bride Photo">
+                        </div>
+                    </div>
+                    
+                    <div class="profile-info">
+                        <h3 class="profile-name">Sinta Ramadyah</h3>
+                        <p class="profile-parents">Putri dari Bapak Susanto & Ibu Sulisna</p>
+                        <a href="https://instagram.com/sintaramadyah" target="_blank" class="profile-ig-btn" aria-label="Instagram Sinta">
+                            <svg class="ig-svg-icon" viewBox="0 0 24 24" width="18" height="18">
+                                <path fill="currentColor" d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.051.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
+                            </svg>
+                        </a>
+                    </div>
+            </div>
+        </section>
+
+        <!-- Quran Quote Standalone Transition Section -->
+        <section class="page quote-page" id="quran-quote">
+            <div class="quran-quote-banner">
+                <div class="quote-icon">
+                    <svg viewBox="0 0 24 24" width="34" height="34" fill="currentColor">
+                        <path d="M9.9 19c-2.76 0-5-2.24-5-5V9c0-2.76 2.24-5 5-5h1c.55 0 1 .45 1 1v3c0 .55-.45 1-1 1h-1c-1.1 0-2 .9-2 2v1c0 1.1.9 2 2 2h1c.55 0 1 .45 1 1v3c0 .55-.45 1-1 1zm9 0c-2.76 0-5-2.24-5-5V9c0-2.76 2.24-5 5-5h1c.55 0 1 .45 1 1v3c0 .55-.45 1-1 1h-1c-1.1 0-2 .9-2 2v1c0 1.1.9 2 2 2h1c.55 0 1 .45 1 1v3c0 .55-.45 1-1 1z"/>
+                    </svg>
+                </div>
+                <p class="quote-text">
+                    "Dan di antara tanda-tanda (kebesaran)-Nya ialah Dia menciptakan pasangan-pasangan untukmu dari jenismu sendiri, agar kamu cenderung dan merasa tenteram kepadanya, dan Dia menjadikan di antaramu rasa kasih dan sayang. Sungguh, pada yang demikian itu benar-benar terdapat tanda-tanda (kebesaran Allah) bagi kaum yang berpikir."
+                </p>
+                <span class="quote-reference">QS. AR-RUM: 21</span>
+            </div>
+        </section>
+
+
+        <!-- Page 4: Love Story Carousel -->
+        <section class="page" id="love-story">
+            <h2 class="section-title">Love Story</h2>
+            
+            <div class="love-story-carousel">
+                <!-- Card 1 -->
+                <div class="love-story-card">
+                    <div class="card-image-wrapper">
+                        <img src="lovestory_1.png" alt="Awal Cerita">
+                        <div class="card-content">
+                            <h3 class="card-title">Awal Cerita</h3>
+                            <div class="card-divider"></div>
+                            <p class="card-desc">Kami berkenalan di Jogja, tepat di Malioboro saat senja 14 Mei 2023, ketika hujan rintik membuat kami berteduh di angkringan yang hangat, obrolan tentang lagu jalanan dan cita-cita sederhana pelan-pelan berubah menjadi keberanian untuk saling tumbuh, hingga kata "pulang" terasa identik dengan menyebut nama yang sama</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Card 2 -->
+                <div class="love-story-card">
+                    <div class="card-image-wrapper">
+                        <img src="lovestory_2.png" alt="Lamaran">
+                        <div class="card-content">
+                            <h3 class="card-title">Lamaran</h3>
+                            <div class="card-divider"></div>
+                            <p class="card-desc">Dengan restu dari kedua belah pihak keluarga, kami melangsungkan prosesi lamaran yang hangat dan intim pada akhir tahun 2025. Di momen ini, kami mengikat komitmen untuk melangkah bersama menuju jenjang yang lebih serius.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="love-story-card">
+                    <div class="card-image-wrapper">
+                        <img src="lovestory_3.png" alt="Pernikahan">
+                        <div class="card-content">
+                            <h3 class="card-title">Pernikahan</h3>
+                            <div class="card-divider"></div>
+                            <p class="card-desc">Hari yang kami nantikan akhirnya tiba. Mengucap janji suci di hadapan Tuhan, keluarga, dan sahabat. Mohon doa restu dari Bapak/Ibu/Saudara/i agar keluarga kami kelak menjadi keluarga yang Sakinah, Mawaddah, dan Warahmah.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 4 -->
+                <div class="love-story-card">
+                    <div class="card-image-wrapper">
+                        <img src="lovestory_4.png" alt="Harapan">
+                        <div class="card-content">
+                            <h3 class="card-title">Harapan</h3>
+                            <div class="card-divider"></div>
+                            <p class="card-desc">Harapan / planing kami kedepanya adalah membangun keluarga yang berbahagia dan sejahtera, tujuan kami kedepanya meraih masa depan yang indah untuk keluarga kecil kami dan saling melindungi satu sama lain.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Page 6: Galeri Foto -->
+        <section class="page" id="gallery">
+            <h2 class="section-title">Galeri Kebahagiaan</h2>
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <img src="media__1780884530283.jpg" alt="Prewedding 1">
+                </div>
+                <div class="gallery-item">
+                    <img src="media__1780884780883.jpg" alt="Prewedding 2">
+                </div>
+                <div class="gallery-item">
+                    <img src="media__1780885005571.jpg" alt="Prewedding 3">
+                </div>
+                <div class="gallery-item">
+                    <img src="media__1780884790233.jpg" alt="Prewedding 4">
+                </div>
+            </div>
+        </section>
+
+        <!-- RSVP combined with Ucapan & Doa Restu at the end of the page -->
+
+        <!-- Page 8: Kado Digital -->
+        <section class="page" id="gift">
+            <div class="content">
+                <h2 class="section-title">Kado Digital</h2>
+                <p class="gift-intro">Bagi Bapak/Ibu/Saudara/i yang ingin mengirimkan ucapan kasih sayang berupa kado digital, dapat menyalurkannya melalui:</p>
+                
+                <!-- Tombol utama untuk membuka pilihan rekening kado digital -->
+                <button type="button" class="reveal-btn" style="margin-top: 0.5rem;" onclick="revealGiftCards(this)">Lihat Rekening Kado Digital</button>
+                
+                <!-- Seluruh pilihan rekening disembunyikan secara default -->
+                <div class="gift-cards" id="gift-cards-container" style="display: none; margin-top: 1.8rem;">
+                    <div class="gift-card">
+                        <div class="bank-logo">BCA</div>
+                        <p class="account-number" id="acc-bca">1234567890</p>
+                        <p class="account-name">A/N Andi Prasetyo</p>
+                        <button type="button" class="copy-btn" onclick="copyToClipboard('acc-bca', this)">Salin No. Rekening</button>
+                    </div>
+                    <div class="gift-card">
+                        <div class="bank-logo">Mandiri</div>
+                        <p class="account-number" id="acc-mandiri">9876543210</p>
+                        <p class="account-name">A/N Sinta Lestari</p>
+                        <button type="button" class="copy-btn" onclick="copyToClipboard('acc-mandiri', this)">Salin No. Rekening</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Page 9: Konfirmasi Kehadiran & Ucapan (Combined) -->
+        <section class="page" id="rsvp-wish">
+            <div class="content">
+                <h2 class="section-title">Konfirmasi Kehadiran &amp; Ucapan</h2>
+                <div class="wishes-box" id="wishes-box">
+                    <div class="wish-item">
+                        <h5 class="wish-sender">Budi Santoso</h5>
+                        <p class="wish-text">Selamat menempuh hidup baru Andi &amp; Sinta! Semoga menjadi keluarga yang sakinah, mawaddah, warahmah. Amin!</p>
+                    </div>
+                    <div class="wish-item">
+                        <h5 class="wish-sender">Dewi Lestari</h5>
+                        <p class="wish-text">Happy Wedding! Lancar acaranya ya, dilimpahkan keberkahan dan kebahagiaan selalu buat kalian berdua.</p>
+                    </div>
+                    <div class="wish-item">
+                        <h5 class="wish-sender">Rian &amp; Fani</h5>
+                        <p class="wish-text">Selamat bro Andi! Akhirnya sah juga. Semoga langgeng sampai kakek nenek!</p>
+                    </div>
+                </div>
+
+                <form id="rsvp-wish-form" class="wish-form">
+                    <div class="form-group">
+                        <input type="text" id="rsvp-name" placeholder="Nama Anda" required>
+                    </div>
+                    <div class="form-group">
+                        <select id="rsvp-status" required>
+                            <option value="" disabled selected>Konfirmasi Kehadiran</option>
+                            <option value="akan hadir">Akan Hadir</option>
+                            <option value="tidak">Tidak Dapat Hadir</option>
+                            <option value="ragu">Masih Ragu</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <input type="number" id="rsvp-guests" placeholder="Jumlah Tamu (termasuk Anda)" min="1" required>
+                    </div>
+                    <div class="form-group">
+                        <textarea id="rsvp-wish-content" placeholder="Tulis Ucapan &amp; Doa Restu Anda..." rows="3" required></textarea>
+                    </div>
+                    <button type="submit" class="wish-submit-btn">Kirim Konfirmasi &amp; Ucapan</button>
+                </form>
+
+
+                <div class="closing-thanks">
+                    <p>Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir untuk memberikan doa restu kepada kedua mempelai.</p>
+                    <h3 class="closing-couples">Kami yang berbahagia,<br><span>Andi &amp; Sinta</span></h3>
+                </div>
+            </div>
+
+            <!-- Vendor IG (di luar card) -->
+            <div style="margin-top: 1.5rem; display: flex; justify-content: center; align-items: center; gap: 8px;">
+                <a href="https://instagram.com/jannubgos_" target="_blank" class="profile-ig-btn" aria-label="Instagram jannubgos_" style="margin-top: 0; width: 32px; height: 32px;">
+                    <svg class="ig-svg-icon" viewBox="0 0 24 24" width="16" height="16">
+                        <path fill="currentColor" d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.051.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
+                    </svg>
+                </a>
+                <a href="https://instagram.com/jannubgos_" target="_blank" style="text-decoration: none; color: var(--primary); font-size: 0.85rem; font-weight: 500;">@jannubgos_</a>
+            </div>
+        </section>
+    </div>
+
+    <script src="script.js?v=1.3"></script>
+</body>
+
+</html>
